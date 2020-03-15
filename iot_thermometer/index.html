@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Smart thermometer</title>
+</head>
+
+<body>
+  <div>
+    Temperature: <span id="temperature">Loading...</span>
+  </div>
+  <div>
+    Humidity: <span id="humidity">Loading...</span>
+  </div>
+</body>
+<script>
+  let getTemperature = async () => {
+    const data = await fetch('/temperature')
+    const body = data.json()
+    document.getElementById('temperature').textContent = `${body.temperature}°C`
+    setTimeout(getTemperature, 2000)
+  }
+  let getHumidity = async () => {
+    const data = await fetch('/humidity')
+    const body = data.json()
+    document.getElementById('humidity').textContent = `${body.humidity}%`
+    setTimeout(getHumidity, 2000)
+  }
+  getTemperature()
+  getHumidity()
+
+</script>
+
+</html>
